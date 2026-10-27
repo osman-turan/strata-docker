@@ -121,6 +121,10 @@ jobs:
             osmanturan/strata:${{ steps.release.outputs.tag }}
             osmanturan/strata:cuda-latest
             osmanturan/strata:cuda-${{ steps.release.outputs.tag }}
+          # The build context has no .git (upstream .dockerignore), so package_terminal.py needs the commit passed in.
+          build-args: |
+            STRATA_COMMIT=${{ steps.source-revision.outputs.commit }}
+            STRATA_VERSION=${{ steps.release.outputs.tag }}
           cache-from: type=gha,scope=strata-linux-amd64
           cache-to: type=gha,mode=max,scope=strata-linux-amd64
           labels: |
